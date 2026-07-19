@@ -78,6 +78,10 @@ class TanstackQueryDevtools {
     this.#errorTypes[1](errorTypes)
   }
 
+  setHideDisabledQueries(hideDisabledQueries: boolean | undefined) {
+    this.#hideDisabledQueries[1](hideDisabledQueries)
+  }
+
   setClient(client: QueryClient) {
     this.#client[1](client)
   }

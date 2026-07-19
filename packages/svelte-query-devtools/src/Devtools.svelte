@@ -17,7 +17,7 @@
   export let errorTypes: Array<DevtoolsErrorType> = []
   export let styleNonce: string | undefined = undefined
   export let shadowDOMTarget: ShadowRoot | undefined = undefined
-  export let hideDisabledQueries: boolean = false
+  export let hideDisabledQueries: boolean | undefined = undefined
 
   let ref: HTMLDivElement
   let devtools: TanstackQueryDevtools | undefined
@@ -56,6 +56,7 @@
       devtools.setPosition(position)
       devtools.setInitialIsOpen(initialIsOpen)
       devtools.setErrorTypes(errorTypes)
+      devtools.setHideDisabledQueries(hideDisabledQueries)
     }
   }
 </script>

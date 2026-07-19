@@ -77,6 +77,10 @@ export function ReactQueryDevtoolsPanel(
   }, [errorTypes, devtools])
 
   React.useEffect(() => {
+    devtools.setHideDisabledQueries(hideDisabledQueries)
+  }, [devtools, hideDisabledQueries])
+
+  React.useEffect(() => {
     if (ref.current) {
       devtools.mount(ref.current)
     }

@@ -316,6 +316,7 @@ export function withDevtools(
                 errorTypes,
                 buttonPosition,
                 initialIsOpen,
+                hideDisabledQueries,
               } = options()
 
               if (devtools && !shouldLoadTools) {
@@ -327,6 +328,7 @@ export function withDevtools(
                 errorTypes && devtools.setErrorTypes(errorTypes)
                 buttonPosition && devtools.setButtonPosition(buttonPosition)
                 initialIsOpen && devtools.setInitialIsOpen(initialIsOpen)
+                devtools.setHideDisabledQueries(hideDisabledQueries)
                 return
               } else if (!shouldLoadTools) {
                 return

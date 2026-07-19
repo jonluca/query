@@ -27,6 +27,7 @@ watchEffect(() => {
   devtools.setPosition(props.position || 'bottom')
   devtools.setInitialIsOpen(props.initialIsOpen)
   devtools.setErrorTypes(props.errorTypes || [])
+  devtools.setHideDisabledQueries(props.hideDisabledQueries)
 })
 
 onMounted(() => {

@@ -91,6 +91,10 @@ export default function SolidQueryDevtools(props: DevtoolsOptions) {
     devtools.setErrorTypes(props.errorTypes || [])
   })
 
+  createEffect(() => {
+    devtools.setHideDisabledQueries(props.hideDisabledQueries)
+  })
+
   onMount(() => {
     devtools.mount(ref)
     onCleanup(() => devtools.unmount())

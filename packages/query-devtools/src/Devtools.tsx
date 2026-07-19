@@ -636,6 +636,12 @@ export const ContentView: Component<ContentViewProps> = (props) => {
     () => Number(props.localStore.mutationSortOrder) || DEFAULT_SORT_ORDER,
   ) as () => 1 | -1
 
+  const hideDisabledQueries = createMemo(
+    () =>
+      useQueryDevtoolsContext().hideDisabledQueries ??
+      props.localStore.hideDisabledQueries === 'true',
+  )
+
   const sortFn = createMemo(() => sortFns[sort() as string])
   const mutationSortFn = createMemo(
     () => mutationSortFns[mutationSort() as string],
@@ -664,7 +670,7 @@ export const ContentView: Component<ContentViewProps> = (props) => {
         props.localStore.filter,
         sort(),
         sortOrder(),
-        props.localStore.hideDisabledQueries,
+        hideDisabledQueries(),
       ],
       () => {
         const curr = query_cache().getAll()
@@ -677,7 +683,7 @@ export const ContentView: Component<ContentViewProps> = (props) => {
           : [...curr]
 
         // Filter out disabled queries if hideDisabledQueries is enabled
-        if (props.localStore.hideDisabledQueries === 'true') {
+        if (hideDisabledQueries()) {
           filtered = filtered.filter((item) => !item.isDisabled())
         }
 
@@ -1229,18 +1235,14 @@ export const ContentView: Component<ContentViewProps> = (props) => {
                           as="button"
                           class={cx(
                             styles().settingsSubButton,
-                            props.localStore.hideDisabledQueries !== 'true' &&
+                            !hideDisabledQueries() &&
                               styles().themeSelectedButton,
                             'tsqd-settings-menu-position-btn',
                             'tsqd-settings-menu-position-btn-show',
                           )}
                         >
                           <span>Show</span>
-                          <Show
-                            when={
-                              props.localStore.hideDisabledQueries !== 'true'
-                            }
-                          >
+                          <Show when={!hideDisabledQueries()}>
                             <CheckCircle />
                           </Show>
                         </DropdownMenu.Item>
@@ -1251,18 +1253,14 @@ export const ContentView: Component<ContentViewProps> = (props) => {
                           as="button"
                           class={cx(
                             styles().settingsSubButton,
-                            props.localStore.hideDisabledQueries === 'true' &&
+                            hideDisabledQueries() &&
                               styles().themeSelectedButton,
                             'tsqd-settings-menu-position-btn',
                             'tsqd-settings-menu-position-btn-hide',
                           )}
                         >
                           <span>Hide</span>
-                          <Show
-                            when={
-                              props.localStore.hideDisabledQueries === 'true'
-                            }
-                          >
+                          <Show when={hideDisabledQueries()}>
                             <CheckCircle />
                           </Show>
                         </DropdownMenu.Item>
